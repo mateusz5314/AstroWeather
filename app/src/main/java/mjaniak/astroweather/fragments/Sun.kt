@@ -10,16 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import mjaniak.astroweather.R
+import com.astrocalculator.AstroCalculator
+import com.astrocalculator.AstroDateTime
+import java.util.*
 
 class Sun : Fragment() {
     private val LOG_TAG = "SUN_FRAGMENT"
     private val mMainHandler = Handler(Looper.getMainLooper())
     private lateinit var mFragmentView : View
     private var mUpdateDelay = 2000L
-    private var mSunriseTime = 0.0
-    private var mSunsetTime = 1.0
-    private var mCivilTwilightTime = 2.0
-    private var mMorningCivilTwilightTime = 3.0
+    private var mLatitude = 51.75
+    private var mLongitude = 19.46667
+    private lateinit var mSunriseTime : AstroDateTime
+    private lateinit var mSunsetTime : AstroDateTime
+    private lateinit var mCivilTwilightTime : AstroDateTime
+    private lateinit var mMorningCivilTwilightTime : AstroDateTime
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +51,26 @@ class Sun : Fragment() {
         text = getString(R.string.sunset) + mSunsetTime.toString()
         outText.text = text
         outText = mFragmentView.findViewById(R.id.civiltwilight)
-        text = getString(R.string.civiltwilight) + mCivilTwilightTime.toString()
+        text = getString(R.string.twilightE) + mCivilTwilightTime.toString()
         outText.text = text
         outText = mFragmentView.findViewById(R.id.civilmorningtwilight)
-        text = getString(R.string.civilmorningtwilight) + mMorningCivilTwilightTime.toString()
+        text = getString(R.string.twilightM) + mMorningCivilTwilightTime.toString()
         outText.text = text
     }
 
     private fun readNewData() {
-        mSunriseTime++
-        mSunsetTime++
-        mCivilTwilightTime++
-        mMorningCivilTwilightTime++
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("Poland"))
+        val dateTime = AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND),
+            calendar.get(Calendar.DST_OFFSET) / 3600000, calendar.timeZone.useDaylightTime())
+        val location = AstroCalculator.Location(mLatitude, mLongitude)
+        val sunInfo = AstroCalculator(dateTime, location).sunInfo
+
+        Log.i(LOG_TAG, dateTime.toString())
+        mSunriseTime = sunInfo.sunrise
+        mSunsetTime = sunInfo.sunset
+        mCivilTwilightTime = sunInfo.twilightEvening
+        mMorningCivilTwilightTime = sunInfo.twilightMorning
     }
 }

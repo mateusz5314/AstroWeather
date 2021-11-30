@@ -6,6 +6,6 @@
     <string name="sun_data">"Sun Data: "</string>
     <string name="sunrise">"Sunrise: "</string>
     <string name="sunset">"Sunset: "</string>
-    <string name="civiltwilight">"Civil Twilight: "</string>
-    <string name="civilmorningtwilight">"Civil Morning Twilight: "</string>
+    <string name="twilightE">"Evening Twilight: "</string>
+    <string name="twilightM">"Morning Twilight: "</string>
 </resources>
