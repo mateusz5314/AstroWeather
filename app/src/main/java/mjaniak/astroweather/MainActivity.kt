@@ -1,20 +1,25 @@
 package mjaniak.astroweather
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import mjaniak.astroweather.fragments.IncorrectSlide
-import mjaniak.astroweather.fragments.Moon
-import mjaniak.astroweather.fragments.Sun
+import android.view.LayoutInflater
+import android.view.View
+import mjaniak.astroweather.fragments.*
+
 
 class MainActivity : FragmentActivity() {
 
     private val LOG_TAG : String = "MainActivity"
     private lateinit var mViewPager: ViewPager2
-    private var mUsePager : Boolean = false;
+    private var mUsePager : Boolean = false
+    private var mMainLayout : String = ""
+    private var mNumOfPagesInPager = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,14 @@ class MainActivity : FragmentActivity() {
         catch (e : Exception)
         {
             Log.i(LOG_TAG, "Pager not found, tablet layout applied.")
+        }
+
+        val inflater = layoutInflater
+        val view: View = inflater.inflate(R.layout.main_activity, null)
+        mMainLayout = view.tag.toString()
+        if (mMainLayout == resources.getString(R.string.phone_tag))
+        {
+            mNumOfPagesInPager = 5
         }
     }
 
@@ -46,18 +59,41 @@ class MainActivity : FragmentActivity() {
     }
 
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        private val NUM_PAGES = 2
-        override fun getItemCount(): Int = NUM_PAGES
+        override fun getItemCount(): Int = mNumOfPagesInPager
 
         override fun createFragment(position: Int) : Fragment {
-            when (position) {
-                0 -> return Sun()
-                1 -> return Moon()
-                else -> { // Note the block
-                    print("Incorrect slide.")
+            Log.i(LOG_TAG, mMainLayout);
+            when (mMainLayout) {
+                resources.getString(R.string.phone_tag) -> {
+                    when (position) {
+                        0 -> return Sun()
+                        1 -> return Moon()
+                        2 -> return BasicWeatherData()
+                        3 -> return ExtraWeatherData()
+                        4 -> return ForecastWeather()
+                        else -> { // Note the block
+                            print("Incorrect slide.")
+                        }
+                    }
+                }
+                resources.getString(R.string.tablet_tag) -> {
+                    when (position) {
+                        0 -> return GroupMoonSun()
+                        1 -> return GroupWeather()
+                        else -> { // Note the block
+                            print("Incorrect slide.")
+                        }
+                    }
                 }
             }
+
             return IncorrectSlide()
         }
+    }
+
+    fun onMenuClick(view: android.view.View) {
+        Log.i(LOG_TAG, "menu click!")
+        val intent = Intent(this, Settings::class.java)
+        startActivity(intent)
     }
 }

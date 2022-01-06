@@ -3,10 +3,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView style="?android:textAppearanceMedium"
-        android:padding="16dp"
-        android:lineSpacingMultiplier="1.2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="some text on moon fragment" />
+        android:orientation="vertical">
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/moon_cur_time"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/current_time" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/moon_cur_loc"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/moonHeader"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moon_data" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/moonrise"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moonrise" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/moonset"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moonset" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/new_moon"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_moon" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/full_moon"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/full_moon" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/illumination"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/illumination" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/age"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/age" />
+
+    </LinearLayout>
 </ScrollView>

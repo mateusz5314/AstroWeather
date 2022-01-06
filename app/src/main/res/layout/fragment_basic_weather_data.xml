@@ -9,7 +9,39 @@
         android:orientation="vertical">
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/sun_cur_time"
+            android:id="@+id/city"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/city" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/localization"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/localization"/>
+
+        <TextView
+            android:id="@+id/latitude"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/latitude" />
+
+        <TextView
+            android:id="@+id/longitude"
+            android:padding="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/longitude" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/time"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
@@ -17,68 +49,36 @@
             android:text="@string/current_time" />
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/sun_cur_loc"
+            android:id="@+id/temperature"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/location" />
+            android:text="@string/temperature" />
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/sunHeader"
+            android:id="@+id/pressure"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sun_data" />
+            android:text="@string/pressure" />
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/sunrise"
+            android:id="@+id/description"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sunrise" />
+            android:text="@string/place_holder" />
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/civilmorningtwilight"
+            android:id="@+id/visualization"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/twilightM" />
-
-        <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/azimuthRise"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/azimuth_rise" />
-
-        <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/sunset"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sunset" />
-
-        <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/civiltwilight"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/twilightE" />
-
-        <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/azimuthSet"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/azimuth_set" />
+            android:text="@string/place_holder" />
 
     </LinearLayout>
 </ScrollView>
