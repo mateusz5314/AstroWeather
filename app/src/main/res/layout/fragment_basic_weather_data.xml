@@ -17,14 +17,6 @@
             android:text="@string/city" />
 
         <TextView style="?android:textAppearanceMedium"
-            android:id="@+id/localization"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/localization"/>
-
-        <TextView
             android:id="@+id/latitude"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
@@ -32,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/latitude" />
 
-        <TextView
+        <TextView style="?android:textAppearanceMedium"
             android:id="@+id/longitude"
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"

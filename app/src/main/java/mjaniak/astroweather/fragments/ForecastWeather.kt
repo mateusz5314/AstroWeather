@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import mjaniak.astroweather.R
+import mjaniak.astroweather.WeatherDataProvider
+
 class ForecastWeather : Fragment() {
     private val LOG_TAG = "ForecastWeather_FRAGMENT"
     private lateinit var mFragmentView : View
+    private val mWeatherDataProvider = WeatherDataProvider.mObject
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
