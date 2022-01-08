@@ -11,6 +11,9 @@ import androidx.viewpager2.widget.ViewPager2
 import android.view.LayoutInflater
 import android.view.View
 import mjaniak.astroweather.fragments.*
+import android.app.Activity
+import android.content.Context
+import java.io.File
 
 
 class MainActivity : FragmentActivity() {
@@ -20,6 +23,10 @@ class MainActivity : FragmentActivity() {
     private var mUsePager : Boolean = false
     private var mMainLayout : String = ""
     private var mNumOfPagesInPager = 2
+
+    companion object InternalStorage {
+        lateinit var mDir: File
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,11 @@ class MainActivity : FragmentActivity() {
         if (mMainLayout == resources.getString(R.string.phone_tag))
         {
             mNumOfPagesInPager = 5
+        }
+
+        mDir = File(this.filesDir, "AstroWeather")
+        if (!mDir.exists()) {
+            mDir.mkdir()
         }
     }
 

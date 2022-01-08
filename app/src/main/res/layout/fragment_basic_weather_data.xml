@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/basicWeatherLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -62,7 +63,7 @@
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/place_holder" />
+            android:text="@string/weather" />
 
         <TextView style="?android:textAppearanceMedium"
             android:id="@+id/visualization"
@@ -70,7 +71,7 @@
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/place_holder" />
+            android:text="" />
 
     </LinearLayout>
 </ScrollView>

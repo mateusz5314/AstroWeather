@@ -1,6 +1,5 @@
 package mjaniak.astroweather
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +20,7 @@ class Settings : AppCompatActivity() {
         var mLatitude : Double = 51.75
         var mLongitude : Double = 19.46667
         var mCity : String = "Lodz"
-        var mTemperatureUnits : TemperatureUnits = TemperatureUnits.C
+        var mTemperatureUnit : TemperatureUnits = TemperatureUnits.C
         var mRefreshWeather : Boolean = false
     }
 
@@ -39,7 +38,7 @@ class Settings : AppCompatActivity() {
         view = findViewById(R.id.inp_city)
         view.hint = mCity
 
-        val selectedTemperatureId = if (mTemperatureUnits == TemperatureUnits.C)
+        val selectedTemperatureId = if (mTemperatureUnit == TemperatureUnits.C)
             R.id.temperatureUnit_C else R.id.temperatureUnit_F
         val radioView = findViewById<RadioButton>(selectedTemperatureId)
         radioView.isChecked = true
@@ -67,10 +66,6 @@ class Settings : AppCompatActivity() {
         finish()
     }
 
-    fun weatherUpdated() {
-        mRefreshWeather = false
-    }
-
     private fun checkWeatherSettings() {
         val newCity = findViewById<EditText>(R.id.inp_city).text
         if (newCity.isNotEmpty()) {
@@ -78,8 +73,8 @@ class Settings : AppCompatActivity() {
             Log.i(LOG_TAG, "mCity: $mCity")
         }
         when (findViewById<RadioGroup>(R.id.temperatureUnitSelect).checkedRadioButtonId) {
-            R.id.temperatureUnit_C -> mTemperatureUnits = TemperatureUnits.C
-            R.id.temperatureUnit_F -> mTemperatureUnits = TemperatureUnits.F
+            R.id.temperatureUnit_C -> mTemperatureUnit = TemperatureUnits.C
+            R.id.temperatureUnit_F -> mTemperatureUnit = TemperatureUnits.F
             else -> {
                 // Nothing to do.
                 Log.d(LOG_TAG, "Temperature unit not changed.")

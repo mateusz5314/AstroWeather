@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import mjaniak.astroweather.R
 import mjaniak.astroweather.WeatherDataProvider
@@ -25,6 +26,11 @@ class BasicWeatherData : Fragment() {
         mFragmentView = inflater.inflate(R.layout.fragment_basic_weather_data, container, false)
         setupTimers()
         return mFragmentView
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mClockHandler.removeCallbacksAndMessages(null)
     }
 
     private fun setupTimers() {
@@ -47,12 +53,27 @@ class BasicWeatherData : Fragment() {
         outText = mFragmentView.findViewById(R.id.time)
         outText.text = String.format("%s %s", getString(R.string.current_time), mWeatherDataProvider.mBasicDailyWeatherData.mCurrentTime.toString())
         outText = mFragmentView.findViewById(R.id.temperature)
-        outText.text = String.format("%s %d", getString(R.string.temperature), mWeatherDataProvider.mBasicDailyWeatherData.mTemperature)
+        outText.text = String.format("%s %f", getString(R.string.temperature), mWeatherDataProvider.mBasicDailyWeatherData.mTemperature)
         outText = mFragmentView.findViewById(R.id.pressure)
         outText.text = String.format("%s %d", getString(R.string.pressure), mWeatherDataProvider.mBasicDailyWeatherData.mPressure)
         outText = mFragmentView.findViewById(R.id.description)
-        outText.text = String.format("%s: %s", getString(R.string.place_holder), mWeatherDataProvider.mBasicDailyWeatherData.mDescription)
+        outText.text = String.format("%s %s", getString(R.string.weather), mWeatherDataProvider.mBasicDailyWeatherData.mDescription)
         outText = mFragmentView.findViewById(R.id.visualization)
-        outText.text = String.format("%s: %s", getString(R.string.place_holder), mWeatherDataProvider.mBasicDailyWeatherData.mVisualization)
+        outText.text = String.format("%s", mWeatherDataProvider.mBasicDailyWeatherData.mVisualization)
+
+        val linearLayout: LinearLayout = mFragmentView.findViewById(R.id.basicWeatherLayout)
+        if (linearLayout.findViewWithTag<TextView>("connectionWarning") != null) {
+            if (!mWeatherDataProvider.mOutdatedData) {
+                linearLayout.removeView(linearLayout.findViewWithTag<TextView>("connectionWarning"))
+            }
+        }
+        else {
+            if (mWeatherDataProvider.mOutdatedData) {
+                val warning = TextView(activity)
+                warning.text = getString(R.string.connectionWarning)
+                warning.tag = "connectionWarning"
+                linearLayout.addView(warning)
+            }
+        }
     }
 }
