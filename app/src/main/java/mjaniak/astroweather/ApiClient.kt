@@ -36,7 +36,12 @@ class ApiClient {
             }
             override fun onResponse(call: Call, response: Response) {
                 Log.i(LOG_TAG, "onResponse")
-                response.body()?.string()?.let { callback(it) }
+                response.body()?.string()?.let {
+                    if (it.contains("city not found")) {
+                        callback("")
+                    } else {
+                        callback(it)
+                    }}
             }
         })
     }

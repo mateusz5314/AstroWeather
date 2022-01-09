@@ -106,16 +106,31 @@
             android:id="@+id/cityLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
             android:text="@string/city" />
+
+        <mjaniak.astroweather.widgets.ExtendedSpinner
+            android:id="@+id/favCities"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8" />
 
         <EditText
             android:id="@+id/inp_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:hint="@string/inp_city"
             android:inputType="text" />
+
+        <Button
+            android:id="@+id/addCityToFav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:onClick="onAddCityBtn"
+            android:text="@string/plus_minus" />
+
     </LinearLayout>
 
     <LinearLayout

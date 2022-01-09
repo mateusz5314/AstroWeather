@@ -3,12 +3,18 @@ package mjaniak.astroweather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.view.View
+import android.widget.*
+import java.io.File
+import java.io.FileOutputStream
+import java.lang.Exception
+import android.widget.ArrayAdapter
+import mjaniak.astroweather.widgets.ExtendedSpinner
 
 class Settings : AppCompatActivity() {
     private val LOG_TAG : String = "SettingsActivity"
+    private val mFavCitiesFile = "FavCities.txt"
+    private var mFavCities: ArrayAdapter<String>? = null
 
     enum class TemperatureUnits {
         C,
@@ -42,6 +48,38 @@ class Settings : AppCompatActivity() {
             R.id.temperatureUnit_C else R.id.temperatureUnit_F
         val radioView = findViewById<RadioButton>(selectedTemperatureId)
         radioView.isChecked = true
+
+
+        val spinner: ExtendedSpinner = findViewById(R.id.favCities)
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mCity = parent?.getItemAtPosition(position).toString()
+                val cityDisplayed: TextView = findViewById(R.id.inp_city)
+                cityDisplayed.text = mCity
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        val cities = getDataFromFile(mFavCitiesFile)
+        if (cities.isEmpty()) {
+            cities.add("")
+        }
+        val lst: ArrayList<String> = ArrayList(cities)
+        mFavCities = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1, lst
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
+        if (mFavCities == null){
+            Log.e(LOG_TAG, "mFavCities null")
+        }
     }
 
     fun onSaveBtn(view: android.view.View) {
@@ -90,6 +128,30 @@ class Settings : AppCompatActivity() {
         finish()
     }
 
+    fun onAddCityBtn(view: android.view.View) {
+        Log.i(LOG_TAG, "add favourite city")
+        var newCity = findViewById<TextView>(R.id.inp_city).text
+        if (newCity.toString() != "") {
+            var add = true
+            for (i in 0 until mFavCities?.count!!) {
+                if (newCity.toString() == mFavCities!!.getItem(i) as String) {
+                    add = false
+                    mFavCities!!.remove(mFavCities!!.getItem(i))
+                    removeCityFromFile(newCity.toString())
+                    newCity = ""
+                    if (mFavCities!!.isEmpty) {
+                        mFavCities!!.add("")
+                    }
+                    break
+                }
+            }
+            if (add ) {
+                mFavCities?.add(newCity.toString())
+                saveDataToFile(mFavCitiesFile, newCity.toString())
+            }
+        }
+    }
+
     fun onSaveAndRefWeatherBtn(view: android.view.View) {
         Log.i(LOG_TAG, "save&refresh weather click!")
 
@@ -97,5 +159,45 @@ class Settings : AppCompatActivity() {
         mRefreshWeather = true
 
         finish()
+    }
+
+    private fun getDataFromFile(fileName: String): MutableSet<String> {
+        Log.i(LOG_TAG, "getDataFromFile: ".plus(fileName))
+        val lineList = mutableSetOf<String>()
+        try {
+            val stream = File(MainActivity.mDir, fileName).inputStream()
+            stream.bufferedReader().useLines { lines -> lines.forEach { lineList.add(it)} }
+
+        } catch (e: Exception) {
+            Log.e(LOG_TAG, "File not available")
+        }
+        return lineList
+    }
+
+    private fun saveDataToFile(fileName: String, content: String, append: Boolean=true) {
+        Log.i(LOG_TAG, "saveDataToFile: ".plus(fileName))
+        val file = File(MainActivity.mDir, fileName)
+        file.createNewFile()
+
+        val oFile = FileOutputStream(file, append)
+        oFile.write(content.plus("\n").toByteArray())
+    }
+
+    private fun saveDataToFile(fileName: String, content: Set<String>, append: Boolean=true) {
+        Log.i(LOG_TAG, "saveDataToFile: ".plus(fileName))
+        val file = File(MainActivity.mDir, fileName)
+        file.createNewFile()
+
+        val oFile = FileOutputStream(file, append)
+        for (line in content)
+        {
+            oFile.write(line.plus("\n").toByteArray())
+        }
+    }
+
+    private fun removeCityFromFile(city: String) {
+        val data = getDataFromFile(mFavCitiesFile)
+        data.remove(city)
+        saveDataToFile(mFavCitiesFile, data, false)
     }
 }

@@ -58,5 +58,6 @@
     <string name="visibility">"Visibility: "</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="weather">"Weather: "</string>
-    <string name="connectionWarning">"Warning: Missing internet connection. Displayed data may be outdated."</string>
+    <string name="connectionWarning">"Warning: Missing internet connection or city is invalid. Displayed data may be outdated or incorrect."</string>
+    <string name="plus_minus">+/-</string>
 </resources>
